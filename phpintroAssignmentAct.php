@@ -1,18 +1,24 @@
 <!-- Name: Madla, Emilson Lio F. -->
 <!-- Section: WD-201 -->
 <?php
-//variables information
-$produkto = "L Black Tshirt"; //name of the product
-$descri = "Itong Tshirt na to ay for men only at pinapkita nito <br> ang pagka dilim na nagbibigay nang +100 aura"; //short description of the product
-$presyo = 299.99; 
-$piraso = 3;
-$totality = $presyo * $piraso;
-/*
-Product price: is the cost 299.99
-Quantity: is 3 can change to any amount
-Total: multiplies the product and the quantity to get the total
-*/
+require 'produktoInfo.php';
 
+//total
+$totality = $presyo * $piraso;
+
+//conditional statement
+if ($piraso > 5) {
+    $discount = 0.10;
+    $hulingTotality = $totality - ($totality * $discount);
+} else {
+    $discount = 0;
+    $hulingTotality = $totality;
+}
+//loop sample
+$listahanProdukto = "";
+for ($i = 1; $i <= $piraso; $i++) {
+    $listahanProdukto .= "L Tshirt #$i added to cart<br>";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,6 +34,11 @@ Total: multiplies the product and the quantity to get the total
         <br>
         <p>Presyo: ₱<?php echo $presyo; //price?></p>
         <p>Amount na gustong bilhin: <?php echo $piraso; //amount?></p>
-        <p>Total: ₱<?php echo $totality; //total?></p>
+        <h3>Produktong nasa Cart: </h3>
+        <?php echo $listahanProdukto; //list of product?>
+        
+        <p>Total (Bago ang discount): ₱<?php echo $totality; //total?></p>
+        <p>Kasama ang Discount: %<?php echo $discount * 100; //computes discount?></p>
+        <p>Huling Presyo: ₱<?php echo $hulingTotality; //final price?></p>
     </body>
 </html>
