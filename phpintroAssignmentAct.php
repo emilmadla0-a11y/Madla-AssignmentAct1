@@ -1,44 +1,57 @@
 <!-- Name: Madla, Emilson Lio F. -->
 <!-- Section: WD-201 -->
 <?php
-require 'produktoInfo.php';
-
-//total
-$totality = $presyo * $piraso;
-
-//conditional statement
-if ($piraso > 5) {
-    $discount = 0.10;
-    $hulingTotality = $totality - ($totality * $discount);
-} else {
-    $discount = 0;
-    $hulingTotality = $totality;
-}
-//loop sample
-$listahanProdukto = "";
-for ($i = 1; $i <= $piraso; $i++) {
-    $listahanProdukto .= "L Tshirt #$i added to cart<br>";
-}
+require 'function.php'; //uses require for function
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>L T-Shirt</title> 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-    <body> 
-        <h1><?php echo $produkto; //name of the product?></h1>
-        <p>About the product: <?php echo $descri; //Shows product?></p>
-        <br>
-        <p>Presyo: ₱<?php echo $presyo; //price?></p>
-        <p>Amount na gustong bilhin: <?php echo $piraso; //amount?></p>
-        <h3>Produktong nasa Cart: </h3>
-        <?php echo $listahanProdukto; //list of product?>
+
+<?php include 'header.php'; //use include header now for clean format ?>
+
+<h1><?php echo $produkto; //name of the product ?></h1>
+<p>About the product: <?php echo $descri; //Shows product ?></p>
+<br>
+<p>Price: ₱<?php echo $presyo; //price ?></p>
+<h1>Store Stocks</h1>
+<!-- Added table for calculations of stocks and tax -->
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Stock</th>
+        <th>Reorder?</th>
+        <th>Total</th>
+        <th>Tax</th>
+    </tr>
+<?php
+//foreach loop handles each products in "$products"
+foreach ($products as $product_name => $data):
+
+$price = $data["price"];
+$stock = $data["stock"];
+
+//calling the functions
+$reorderMsg = get_reorder_message($stock);
+$totalValue = get_total_value($price, $stock);
+$taxDue = get_tax_due($price, $stock, $tax_rate);
+?>
+
+    <tr>
+        <td><?= $product_name //product ?></td>
+        <td><?= $stock //stocks ?></td>
+        <td><?= $reorderMsg //reorder ?></td>
+        <td>₱<?= number_format($totalValue, 2) //total ?></td>
+        <td>₱<?= number_format($taxDue, 2) //tax ?></td>
+    </tr>
+<?php endforeach; ?>
+
+</table>
+<!-- Uses produktoInfo.php -->
+<p>Amount na gustong bilhin: <?php echo $piraso; //amount ?></p> 
+
+<h3>Produktong nasa Cart: </h3>
+<?php echo $listahanProdukto; //list of product ?>
         
-        <p>Total (Bago ang discount): ₱<?php echo $totality; //total?></p>
-        <p>Kasama ang Discount: %<?php echo $discount * 100; //computes discount?></p>
-        <p>Huling Presyo: ₱<?php echo $hulingTotality; //final price?></p>
-    </body>
-</html>
+<p>Total (Bago ang discount): ₱<?php echo $totality; //total ?></p>
+<p>Kasama ang Discount: %<?php echo $discount * 100; //computes discount ?></p>
+<p>Huling Presyo: ₱<?php echo $hulingTotality; //final price ?></p>
+<br>
+
+<?php include 'footer.php'; //use footer ?>
