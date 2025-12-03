@@ -33,3 +33,53 @@ p {
   padding: 6px 20px 6px 20px;
   margin: 0px;
 }
+
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: #2b2b2b;
+  box-shadow: 0px 0px 10px #000;
+}
+
+th {
+  background: #806f00;
+  padding: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #555;
+}
+
+nav {
+  background: #806f00;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li {
+  margin: 0;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
